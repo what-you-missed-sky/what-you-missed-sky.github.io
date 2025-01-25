@@ -20,6 +20,9 @@ importers:
       '@atcute/client':
         specifier: ^2.0.7
         version: 2.0.7
+      '@atcute/oauth-browser-client':
+        specifier: ^1.0.9
+        version: 1.0.9
       kitty-agent:
         specifier: ^8.4.0
         version: 8.4.0(@atcute/cid@2.1.0)(@atcute/client@2.0.7)(@atcute/oauth-browser-client@1.0.9)(@atproto/syntax@0.3.1)
