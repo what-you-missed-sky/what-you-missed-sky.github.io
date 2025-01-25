@@ -1,11 +1,8 @@
 <script lang="ts">
-import { SAMPLE_TIMELINE } from '$lib';
 import { authenticateIfNecessary, savedHandle, user, waitForInitialSession } from '$lib/atproto/signed-in-user';
 import BlueskyProfileFeed from '$lib/components/bluesky-profile-feed.svelte';
 import { hoursAgo } from '$lib/date-utils';
-import { CredentialManager } from '@atcute/client';
 import type { AppBskyFeedDefs, AppBskyFeedGetTimeline, At } from '@atcute/client/lexicons';
-import { KittyAgent, resolveHandleAnonymously } from 'kitty-agent';
 import { onMount } from 'svelte';
 
 let did = $state<At.DID>();
