@@ -120,15 +120,16 @@ const catchupRanges = {
     {#await feedData}
     Fetching maids...
     {:then x}
-        {#if x}
-            {@const { result, did } = x}
-            <BlueskyProfileFeed feed={feedDerived} {did} allowUnauthenticated={true} />
+        {#if x && did}
+            <BlueskyProfileFeed feed={feedDerived} />
         {/if}
     {/await}
 {:else}
     {#if initialSessionPromise}
         {#await initialSessionPromise}
+        <div class="catchup-form">
             Loading...
+        </div>
         {:then _}
             <button onclick={signIn}>Sign In</button>
         {/await}

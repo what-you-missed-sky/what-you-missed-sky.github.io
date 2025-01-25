@@ -1,50 +1,52 @@
 <script lang="ts">
-  	import type { AppBskyFeedDefs, AppBskyFeedGetPostThread, At } from '@atcute/client/lexicons';
-	import EmbedFrame from './internal/components/embed-frame.svelte';
-	import FeedPost from './internal/components/feed-post.svelte';
-	import ProfileFeedHeader from './internal/components/profile-feed-header.svelte';
+import type { AppBskyFeedDefs, AppBskyFeedGetPostThread, At } from '@atcute/client/lexicons';
+import EmbedFrame from './internal/components/embed-frame.svelte';
+import FeedPost from './internal/components/feed-post.svelte';
+import ProfileFeedHeader from './internal/components/profile-feed-header.svelte';
 
-	import type { ProfileFeedData } from './internal/types/profile-feed.js';
-	import { NO_UNAUTHENTICATED_LABEL } from './internal/utils/constants.js';
-  	import Post from './internal/components/post.svelte';
+import Post from './internal/components/post.svelte';
 
-	const { did, feed, allowUnauthenticated }: {
-		did: At.DID;
-		feed: AppBskyFeedDefs.FeedViewPost[];
-		allowUnauthenticated: boolean;
-	} = $props();
+const {
+    feed,
+}: {
+    feed: AppBskyFeedDefs.FeedViewPost[];
+} = $props();
 
-	const items = $derived(feed.filter((item) => {
-		const reason = item.reason;
-		if (reason) {
-			if (reason.$type === 'app.bsky.feed.defs#reasonPin') {
-				return true;
-			}
+const items = $derived(
+    feed.filter((item) => {
+        const reason = item.reason;
+        if (reason) {
+            if (reason.$type === 'app.bsky.feed.defs#reasonPin') {
+                return true;
+            }
 
-			if (reason.$type === 'app.bsky.feed.defs#reasonRepost') {
-				const author = item.post.author;
+            if (reason.$type === 'app.bsky.feed.defs#reasonRepost') {
+                return true;
+            }
 
-				if (author.did !== did) {
-					return (
-						allowUnauthenticated || !author.labels?.some((label) => label.val === NO_UNAUTHENTICATED_LABEL)
-					);
-				}
+            // Don't show anything we don't recognize
+            return false;
+        }
 
-				return true;
-			}
+        return true;
+    }),
+);
 
-			// Don't show anything we don't recognize
-			return false;
-		}
-
-		return true;
-	}));
+function getKey(item: AppBskyFeedDefs.FeedViewPost) {
+    let key = item.post.uri;
+    if (item.reason) {
+        if (item.reason.$type === 'app.bsky.feed.defs#reasonRepost') {
+            key += `:${item.reason.by.did}`;
+        }
+    }
+    return key;
+}
 </script>
 
 <EmbedFrame>
 	{#if items.length > 0}
 		<div class="feed">
-			{#each items as item (item.post.uri)}
+			{#each items as item (getKey(item))}
 				{#if item.reply?.parent.$type === 'app.bsky.feed.defs#postView'}
 					<Post post={item.reply.parent} />
 				{:else if item.reply?.parent.$type === 'app.bsky.feed.defs#blockedPost'}
@@ -80,7 +82,7 @@
 	}
 
 	.blocked-message {
-		margin: 0;
+		margin-left: calc(36px + 12px);
 		padding: 16px 16px;
 		color: var(--text-secondary);
 	}
