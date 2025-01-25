@@ -6,7 +6,7 @@ import type { AppBskyFeedDefs, AppBskyFeedGetTimeline, At } from '@atcute/client
 import { onMount } from 'svelte';
 
 let did = $state<At.DID>();
-let feedData = $state<AppBskyFeedGetTimeline.Output>();
+let feedData = $state<AppBskyFeedDefs.FeedViewPost[]>([]);
 
 let initialSessionPromise = $state<Promise<void>>();
 
@@ -29,9 +29,15 @@ onMount(async () => {
 user.subscribe(async (user) => {
     if (user) {
         did = user.did;
-        const result = await user.agent.query('app.bsky.feed.getTimeline', { limit: 100 });
-        console.log(result);
-        feedData = result;
+
+        feedData = [];
+
+        let cursor: string | undefined;
+        do {
+            const result = await user.agent.query('app.bsky.feed.getTimeline', { limit: 100, cursor });
+            cursor = result.cursor;
+            feedData.push(...result.feed);
+        } while (cursor && feedData.length < 1000);
     }
 });
 
@@ -50,27 +56,25 @@ $effect(() => {
 
     console.log('called this pussy', includeReposts, lastNHours, orderBy, includeReplies);
 
-    if (feedData) {
-        feedDerived = feedData.feed
-            .filter((post) => {
-                if (post.reason?.$type === 'app.bsky.feed.defs#reasonRepost' && !includeReposts) {
-                    return false;
-                }
+    feedDerived = feedData
+        .filter((post) => {
+            if (post.reason?.$type === 'app.bsky.feed.defs#reasonRepost' && !includeReposts) {
+                return false;
+            }
 
-                if (new Date(post.post.indexedAt).getTime() < hoursAgo(lastNHours).getTime()) {
-                    return false;
-                }
+            if (new Date(post.post.indexedAt).getTime() < hoursAgo(lastNHours).getTime()) {
+                return false;
+            }
 
-                return includeReplies || !post.reply;
-            })
-            .sort((a, b) => {
-                if (orderBy === 'desc') {
-                    return new Date(a.post.indexedAt).getTime() - new Date(b.post.indexedAt).getTime();
-                }
+            return includeReplies || !post.reply;
+        })
+        .sort((a, b) => {
+            if (orderBy === 'desc') {
+                return new Date(a.post.indexedAt).getTime() - new Date(b.post.indexedAt).getTime();
+            }
 
-                return new Date(b.post.indexedAt).getTime() - new Date(a.post.indexedAt).getTime();
-            });
-    }
+            return new Date(b.post.indexedAt).getTime() - new Date(a.post.indexedAt).getTime();
+        });
 });
 
 const catchupRanges = {
