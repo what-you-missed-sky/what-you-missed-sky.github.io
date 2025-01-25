@@ -7,16 +7,35 @@ settings:
 importers:
 
   .:
+    dependencies:
+      '@atcute/bluesky':
+        specifier: ^1.0.12
+        version: 1.0.12(@atcute/client@2.0.7)
+      '@atcute/bluesky-richtext-parser':
+        specifier: ^1.0.7
+        version: 1.0.7
+      '@atcute/bluesky-richtext-segmenter':
+        specifier: ^1.0.5
+        version: 1.0.5(@atcute/bluesky@1.0.12(@atcute/client@2.0.7))(@atcute/client@2.0.7)
+      '@atcute/client':
+        specifier: ^2.0.7
+        version: 2.0.7
+      kitty-agent:
+        specifier: ^8.4.0
+        version: 8.4.0(@atcute/cid@2.1.0)(@atcute/client@2.0.7)(@atcute/oauth-browser-client@1.0.9)(@atproto/syntax@0.3.1)
     devDependencies:
       '@sveltejs/adapter-static':
         specifier: ^3.0.8
-        version: 3.0.8(@sveltejs/kit@2.16.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.19.2)(vite@6.0.11))(svelte@5.19.2)(vite@6.0.11))
+        version: 3.0.8(@sveltejs/kit@2.16.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.19.2)(vite@6.0.11(@types/node@22.10.10)))(svelte@5.19.2)(vite@6.0.11(@types/node@22.10.10)))
       '@sveltejs/kit':
         specifier: ^2.16.0
-        version: 2.16.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.19.2)(vite@6.0.11))(svelte@5.19.2)(vite@6.0.11)
+        version: 2.16.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.19.2)(vite@6.0.11(@types/node@22.10.10)))(svelte@5.19.2)(vite@6.0.11(@types/node@22.10.10))
       '@sveltejs/vite-plugin-svelte':
         specifier: ^5.0.0
-        version: 5.0.3(svelte@5.19.2)(vite@6.0.11)
+        version: 5.0.3(svelte@5.19.2)(vite@6.0.11(@types/node@22.10.10))
+      '@types/node':
+        specifier: ^22.10.10
+        version: 22.10.10
       svelte:
         specifier: ^5.0.0
         version: 5.19.2
@@ -28,13 +47,48 @@ importers:
         version: 5.7.3
       vite:
         specifier: ^6.0.0
-        version: 6.0.11
+        version: 6.0.11(@types/node@22.10.10)
 
 packages:
 
   '@ampproject/remapping@2.3.0':
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
     engines: {node: '>=6.0.0'}
+
+  '@atcute/bluesky-richtext-parser@1.0.7':
+    resolution: {integrity: sha512-nOvU699OXiGMbyswao7JJnY0C9WkwE7PVC/m5WWt0UN9fsXSOor9IZWw+v9SATp+94BTJoG38XyUomUaJnoQRA==}
+
+  '@atcute/bluesky-richtext-segmenter@1.0.5':
+    resolution: {integrity: sha512-D0FfmJVwppky9naL1OGKcQjtgO0lDLhkG4iCQHpShuHhEZ9FUdf3eUb/eQpVRNJGaJ4ShjEOHA6FlAizcjMkGQ==}
+    peerDependencies:
+      '@atcute/bluesky': ^1.0.0
+      '@atcute/client': ^1.0.0 || ^2.0.0
+
+  '@atcute/bluesky@1.0.12':
+    resolution: {integrity: sha512-oUM+MxD5asGYyQDOHBGay7f9ryhsBpQ8LTUmsEZvp4t/WG0ZV2AcFRWsG0DxB+CsmSTbP2DHLMZCatE3usmt+g==}
+    peerDependencies:
+      '@atcute/client': ^1.0.0 || ^2.0.0
+
+  '@atcute/cid@2.1.0':
+    resolution: {integrity: sha512-Twsf5OKGk6QEqU1Z74feo1eRmnznYFzdCxtCISCutedCL2I2eGzD1F7JZRA+heTp5kgV5Bwvxvjn7VkGQhq3Sg==}
+
+  '@atcute/client@2.0.7':
+    resolution: {integrity: sha512-bvNahrCGvhZw/EIx0HU/GOoKZEnUaAppbuZh7cu+VsOFA2tdFLnZJed9Hagh5Yz/eUX7QUh5NB4dRTRUdggSLQ==}
+
+  '@atcute/multibase@1.1.2':
+    resolution: {integrity: sha512-KFX+c7a/u2jSNcRw0rLaUHG/XEKf1A1c8XF5soHnsb1JMCShihf/anfZ1kJ4no/IlIp9HEHV3PQRQO2sWL6ASQ==}
+
+  '@atcute/oauth-browser-client@1.0.9':
+    resolution: {integrity: sha512-7B4cBm9x/S6gtBgxPktCT6GY8GUze6XlCGUASqppU+bh6x5Z3QtfpPCg4jpd+bagzCdqpgb4VNhmCLcVqoO++g==}
+
+  '@atcute/uint8array@1.0.1':
+    resolution: {integrity: sha512-AAnlFKyfDRgb9GNZJbhQ6OuMhbmNPirQyapb8KnmcEhxQZ3+tt+4NcwqekEegY4MpNqSTYeeTdyxq0wGZv1JHg==}
+
+  '@atcute/varint@1.0.2':
+    resolution: {integrity: sha512-0O31hePzzr4O3NGWHUKKOyta6CGSL+AtN8iir8grGxu9jXyI7DBARlw6PbgKA6uTAvsXdpmRmF8MX+p0TsLnNg==}
+
+  '@atproto/syntax@0.3.1':
+    resolution: {integrity: sha512-fzW0Mg1QUOVCWUD3RgEsDt6d1OZ6DdFmbKcDdbzUfh0t4rhtRAC05KbZYmxuMPWDAiJ4BbbQ5dkAc/mNypMXkw==}
 
   '@esbuild/aix-ppc64@0.24.2':
     resolution: {integrity: sha512-thpVCb/rhxE/BnMLQ7GReQLLN8q9qbHmI55F4489/ByVg2aQaQ6kbcLb6FHkocZzQhxc4gx0sCk0tJkKBFzDhA==}
@@ -337,6 +391,9 @@ packages:
   '@types/estree@1.0.6':
     resolution: {integrity: sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw==}
 
+  '@types/node@22.10.10':
+    resolution: {integrity: sha512-X47y/mPNzxviAGY5TcYPtYL8JsY3kAq2n8fMmKoRCxq/c4v4pyGNCzM2R6+M5/umG4ZfHuT+sgqDYqWc9rJ6ww==}
+
   acorn-typescript@1.4.13:
     resolution: {integrity: sha512-xsc9Xv0xlVfwp2o7sQ+GCQ1PgbkdcpWdTzrwXxO3xDMTAywVS3oXVOcOHuRjAPkS4P9b+yc/qNF15460v+jp4Q==}
     peerDependencies:
@@ -412,6 +469,14 @@ packages:
 
   is-reference@3.0.3:
     resolution: {integrity: sha512-ixkJoqQvAP88E6wLydLGGqCJsrFUnqoH6HnaczB8XmDH1oaWU+xxdptvikTgaEhtZ53Ky6YXiBuUI2WXLMCwjw==}
+
+  kitty-agent@8.4.0:
+    resolution: {integrity: sha512-A/l2Q+zVR+3xTlFNANzGc3p+0L9Syedh6XkgLZfLPGl/m2sepRgizcpfIp4cMvRALckfXBSff8UiD/6K2Mr3QQ==}
+    peerDependencies:
+      '@atcute/cid': ^2.1.0
+      '@atcute/client': ^2.0.6
+      '@atcute/oauth-browser-client': ^1.0.9
+      '@atproto/syntax': ^0.3.1
 
   kleur@4.1.5:
     resolution: {integrity: sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==}
@@ -491,6 +556,9 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
+  undici-types@6.20.0:
+    resolution: {integrity: sha512-Ny6QZ2Nju20vw1SRHe3d9jVu6gJ+4e3+MMpqu7pqE5HT6WsTSlce++GQmK5UXS8mzV8DSYHrQH+Xrf2jVcuKNg==}
+
   vite@6.0.11:
     resolution: {integrity: sha512-4VL9mQPKoHy4+FE0NnRE/kbY51TOfaknxAjt3fJbGJxhIpBZiqVzlZDEesWWsuREXHwNdAoOFZ9MkPEVXczHwg==}
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
@@ -548,6 +616,39 @@ snapshots:
     dependencies:
       '@jridgewell/gen-mapping': 0.3.8
       '@jridgewell/trace-mapping': 0.3.25
+
+  '@atcute/bluesky-richtext-parser@1.0.7': {}
+
+  '@atcute/bluesky-richtext-segmenter@1.0.5(@atcute/bluesky@1.0.12(@atcute/client@2.0.7))(@atcute/client@2.0.7)':
+    dependencies:
+      '@atcute/bluesky': 1.0.12(@atcute/client@2.0.7)
+      '@atcute/client': 2.0.7
+
+  '@atcute/bluesky@1.0.12(@atcute/client@2.0.7)':
+    dependencies:
+      '@atcute/client': 2.0.7
+
+  '@atcute/cid@2.1.0':
+    dependencies:
+      '@atcute/multibase': 1.1.2
+      '@atcute/uint8array': 1.0.1
+      '@atcute/varint': 1.0.2
+
+  '@atcute/client@2.0.7': {}
+
+  '@atcute/multibase@1.1.2':
+    dependencies:
+      '@atcute/uint8array': 1.0.1
+
+  '@atcute/oauth-browser-client@1.0.9':
+    dependencies:
+      '@atcute/client': 2.0.7
+
+  '@atcute/uint8array@1.0.1': {}
+
+  '@atcute/varint@1.0.2': {}
+
+  '@atproto/syntax@0.3.1': {}
 
   '@esbuild/aix-ppc64@0.24.2':
     optional: true
@@ -700,13 +801,13 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.32.0':
     optional: true
 
-  '@sveltejs/adapter-static@3.0.8(@sveltejs/kit@2.16.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.19.2)(vite@6.0.11))(svelte@5.19.2)(vite@6.0.11))':
+  '@sveltejs/adapter-static@3.0.8(@sveltejs/kit@2.16.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.19.2)(vite@6.0.11(@types/node@22.10.10)))(svelte@5.19.2)(vite@6.0.11(@types/node@22.10.10)))':
     dependencies:
-      '@sveltejs/kit': 2.16.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.19.2)(vite@6.0.11))(svelte@5.19.2)(vite@6.0.11)
+      '@sveltejs/kit': 2.16.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.19.2)(vite@6.0.11(@types/node@22.10.10)))(svelte@5.19.2)(vite@6.0.11(@types/node@22.10.10))
 
-  '@sveltejs/kit@2.16.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.19.2)(vite@6.0.11))(svelte@5.19.2)(vite@6.0.11)':
+  '@sveltejs/kit@2.16.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.19.2)(vite@6.0.11(@types/node@22.10.10)))(svelte@5.19.2)(vite@6.0.11(@types/node@22.10.10))':
     dependencies:
-      '@sveltejs/vite-plugin-svelte': 5.0.3(svelte@5.19.2)(vite@6.0.11)
+      '@sveltejs/vite-plugin-svelte': 5.0.3(svelte@5.19.2)(vite@6.0.11(@types/node@22.10.10))
       '@types/cookie': 0.6.0
       cookie: 0.6.0
       devalue: 5.1.1
@@ -719,33 +820,37 @@ snapshots:
       set-cookie-parser: 2.7.1
       sirv: 3.0.0
       svelte: 5.19.2
-      vite: 6.0.11
+      vite: 6.0.11(@types/node@22.10.10)
 
-  '@sveltejs/vite-plugin-svelte-inspector@4.0.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.19.2)(vite@6.0.11))(svelte@5.19.2)(vite@6.0.11)':
+  '@sveltejs/vite-plugin-svelte-inspector@4.0.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.19.2)(vite@6.0.11(@types/node@22.10.10)))(svelte@5.19.2)(vite@6.0.11(@types/node@22.10.10))':
     dependencies:
-      '@sveltejs/vite-plugin-svelte': 5.0.3(svelte@5.19.2)(vite@6.0.11)
+      '@sveltejs/vite-plugin-svelte': 5.0.3(svelte@5.19.2)(vite@6.0.11(@types/node@22.10.10))
       debug: 4.4.0
       svelte: 5.19.2
-      vite: 6.0.11
+      vite: 6.0.11(@types/node@22.10.10)
     transitivePeerDependencies:
       - supports-color
 
-  '@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.19.2)(vite@6.0.11)':
+  '@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.19.2)(vite@6.0.11(@types/node@22.10.10))':
     dependencies:
-      '@sveltejs/vite-plugin-svelte-inspector': 4.0.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.19.2)(vite@6.0.11))(svelte@5.19.2)(vite@6.0.11)
+      '@sveltejs/vite-plugin-svelte-inspector': 4.0.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.19.2)(vite@6.0.11(@types/node@22.10.10)))(svelte@5.19.2)(vite@6.0.11(@types/node@22.10.10))
       debug: 4.4.0
       deepmerge: 4.3.1
       kleur: 4.1.5
       magic-string: 0.30.17
       svelte: 5.19.2
-      vite: 6.0.11
-      vitefu: 1.0.5(vite@6.0.11)
+      vite: 6.0.11(@types/node@22.10.10)
+      vitefu: 1.0.5(vite@6.0.11(@types/node@22.10.10))
     transitivePeerDependencies:
       - supports-color
 
   '@types/cookie@0.6.0': {}
 
   '@types/estree@1.0.6': {}
+
+  '@types/node@22.10.10':
+    dependencies:
+      undici-types: 6.20.0
 
   acorn-typescript@1.4.13(acorn@8.14.0):
     dependencies:
@@ -817,6 +922,13 @@ snapshots:
   is-reference@3.0.3:
     dependencies:
       '@types/estree': 1.0.6
+
+  kitty-agent@8.4.0(@atcute/cid@2.1.0)(@atcute/client@2.0.7)(@atcute/oauth-browser-client@1.0.9)(@atproto/syntax@0.3.1):
+    dependencies:
+      '@atcute/cid': 2.1.0
+      '@atcute/client': 2.0.7
+      '@atcute/oauth-browser-client': 1.0.9
+      '@atproto/syntax': 0.3.1
 
   kleur@4.1.5: {}
 
@@ -916,16 +1028,19 @@ snapshots:
 
   typescript@5.7.3: {}
 
-  vite@6.0.11:
+  undici-types@6.20.0: {}
+
+  vite@6.0.11(@types/node@22.10.10):
     dependencies:
       esbuild: 0.24.2
       postcss: 8.5.1
       rollup: 4.32.0
     optionalDependencies:
+      '@types/node': 22.10.10
       fsevents: 2.3.3
 
-  vitefu@1.0.5(vite@6.0.11):
+  vitefu@1.0.5(vite@6.0.11(@types/node@22.10.10)):
     optionalDependencies:
-      vite: 6.0.11
+      vite: 6.0.11(@types/node@22.10.10)
 
   zimmerframe@1.1.2: {}
